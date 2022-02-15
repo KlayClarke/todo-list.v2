@@ -11,16 +11,6 @@ export function Project(name, description, dueDate) {
   project.dueDate = dueDate;
   project.todos = [];
 
-  // function to add todo to project
-  project.addTodo = function (name, priority) {
-    let todo = {
-      id: Date.now(),
-      name: name,
-      priority: priority,
-    };
-    project.todos.push(todo);
-  };
-
   // function to store project in local storage
   function storeProject() {
     if (storageAvailable("localStorage")) {
@@ -38,14 +28,6 @@ export function Project(name, description, dueDate) {
   }
   // store project when project is created
   storeProject();
-
-  // function to remove project in local storage
-  function removeProject() {
-    let projects = JSON.parse(localStorage.getItem("projects"));
-    for (let project of JSON.parse(localStorage.getItem("projects"))) {
-      //
-    }
-  }
 
   return Object.freeze(project);
 }

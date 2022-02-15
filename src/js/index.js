@@ -1,8 +1,6 @@
 import "./storage";
 import { Project } from "./factory";
 
-const createProjectButton = document.querySelector("#create-project");
-
 if (localStorage.getItem("projects")) {
   localStorage.getItem("projects");
 }
@@ -18,8 +16,19 @@ function createProject() {
   document.querySelector("input[name='project-name']").value = "";
   document.querySelector("textarea[name='project-description']").value = "";
   document.querySelector("input[name='project-due-date']").value = "";
-  displayProjects();
-  displayTodos();
+  updateDOM();
+}
+
+function deleteProject(e) {
+  // search through local storage and compare button id to project ids, remove project with same id as button
+  for (let project of JSON.parse(localStorage.getItem("projects"))) {
+    if (project.id == e.target.id) {
+      let projects = JSON.parse(localStorage.getItem("projects"));
+      let newProjects = projects.filter((project) => project.id != e.target.id);
+      localStorage.setItem("projects", JSON.stringify(newProjects));
+    }
+  }
+  updateDOM();
 }
 
 function displayProjects() {
@@ -45,9 +54,10 @@ function displayProjects() {
 }
 
 function addDeleteButton(el) {
-  let deleteButton = document.createElement("span");
+  let deleteButton = document.createElement("button");
   deleteButton.classList.add("delete");
   deleteButton.setAttribute("id", el.id);
+  deleteButton.type = "submit";
   deleteButton.innerHTML = "&times;";
   el.appendChild(deleteButton);
 }
@@ -60,7 +70,18 @@ function displayTodos() {
   }
 }
 
-displayProjects();
-displayTodos();
+function updateDOM() {
+  displayProjects();
+  displayTodos();
+}
+
+updateDOM();
+
+let createProjectButton = document.querySelector("#create-project");
+let deleteButtons = document.querySelectorAll(".delete");
 
 createProjectButton.addEventListener("click", createProject);
+
+deleteButtons.forEach((btn) => btn.addEventListener("click", deleteProject));
+
+// eventually create own DOM file where we house element creation ... get organized

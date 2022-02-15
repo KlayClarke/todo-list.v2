@@ -4,7 +4,17 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-form {
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#project-form {
+  border: 1px solid salmon;
+  width: 60vw;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,13 +31,16 @@ form {
 .project {
   padding: 15px;
   width: 60vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .project:hover {
   background-color: lightgray;
 }
 
-.delete {
+.delete-project {
   float: right;
   width: 1.5rem;
   line-height: 1.5rem;
@@ -36,6 +49,12 @@ form {
   border-radius: 0.25rem;
 }
 
-.delete:hover {
+.delete-project:hover {
   background-color: red;
+}
+
+.todo-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

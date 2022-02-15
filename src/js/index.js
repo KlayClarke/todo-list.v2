@@ -1,22 +1,33 @@
 import "./storage";
+import { updateDOM } from "./updateDOM";
 import { Project } from "./factory";
 
-if (localStorage.getItem("projects")) {
-  localStorage.getItem("projects");
-}
+updateDOM();
+
+let createProjectButton = document.querySelector("#create-project");
+let deleteButtons = document.querySelectorAll(".delete-project");
 
 function createProject() {
-  let name = document.querySelector("input[name='project-name']").value;
-  let description = document.querySelector(
-    "textarea[name='project-description']"
-  ).value;
-  let dueDate = document.querySelector("input[name='project-due-date']").value;
-  Project(name, description, dueDate);
-  // clear input fields
-  document.querySelector("input[name='project-name']").value = "";
-  document.querySelector("textarea[name='project-description']").value = "";
-  document.querySelector("input[name='project-due-date']").value = "";
-  updateDOM();
+  if (
+    document.querySelector("input[name='project-name']").value &&
+    document.querySelector("textarea[name='project-description']").value &&
+    document.querySelector("input[name='project-due-date']").value
+  ) {
+    let name = document.querySelector("input[name='project-name']").value;
+    let description = document.querySelector(
+      "textarea[name='project-description']"
+    ).value;
+    let dueDate = document.querySelector(
+      "input[name='project-due-date']"
+    ).value;
+    let id = Date.now();
+    Project(name, description, dueDate);
+    // clear input fields
+    document.querySelector("input[name='project-name']").value = "";
+    document.querySelector("textarea[name='project-description']").value = "";
+    document.querySelector("input[name='project-due-date']").value = "";
+    updateDOM();
+  }
 }
 
 function deleteProject(e) {
@@ -31,57 +42,24 @@ function deleteProject(e) {
   updateDOM();
 }
 
-function displayProjects() {
-  const projects = document.querySelector("#projects");
-  projects.innerHTML = "";
-  if (JSON.parse(localStorage.getItem("projects"))) {
-    for (let project of JSON.parse(localStorage.getItem("projects"))) {
-      // create div to hold project
-      let projectDiv = document.createElement("div");
-      projectDiv.classList.add("project");
-      projectDiv.setAttribute("id", project.id);
-      projectDiv.innerText = `${project.name}: ${project.description} | ${project.dueDate}`;
-      // add delete button to project div
-      addDeleteButton(projectDiv);
-      // append newly created project to div of all projects
-      projects.appendChild(projectDiv);
-      // create div to hold todos in project
-      let todosDiv = document.createElement("div");
-      todosDiv.classList.add("todos");
-      projectDiv.appendChild(todosDiv);
+// function to add todo to project
+function addTodo(id) {
+  let todo = {
+    id: Date.now(),
+    name: name,
+    priority: priority,
+  };
+  for (let project of JSON.parse(localStorage.getItem("projects"))) {
+    if (project.id == id) {
+      console.log(project);
     }
   }
 }
-
-function addDeleteButton(el) {
-  let deleteButton = document.createElement("button");
-  deleteButton.classList.add("delete");
-  deleteButton.setAttribute("id", el.id);
-  deleteButton.type = "submit";
-  deleteButton.innerHTML = "&times;";
-  el.appendChild(deleteButton);
-}
-
-function displayTodos() {
-  if (document.querySelectorAll(".todo")) {
-    for (let todo of document.querySelectorAll(".todo")) {
-      console.log(todo);
-    }
-  }
-}
-
-function updateDOM() {
-  displayProjects();
-  displayTodos();
-}
-
-updateDOM();
-
-let createProjectButton = document.querySelector("#create-project");
-let deleteButtons = document.querySelectorAll(".delete");
 
 createProjectButton.addEventListener("click", createProject);
-
 deleteButtons.forEach((btn) => btn.addEventListener("click", deleteProject));
 
 // eventually create own DOM file where we house element creation ... get organized
+
+//delete buttons only work after refresh : don't work after todo creation, or after todo deletion
+// make it so delete buttons allows you to delete 2 projects back to back

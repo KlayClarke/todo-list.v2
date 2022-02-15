@@ -4,12 +4,31 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="style.css" />
     <title>Reminders</title>
   </head>
   <body>
     <header>Reminders</header>
     <main>
+      <form action="">
+        <label for="project-name">Project Name</label><br />
+        <input type="text" name="project-name" id="project-name" /> <br />
+        <label for="project-description">Project Description</label><br />
+        <textarea
+          name="project-description"
+          id="project-description"
+          cols="30"
+          rows="10"
+        ></textarea
+        ><br />
+        <label for="project-due-date">Due Date</label><br />
+        <input
+          type="date"
+          name="project-due-date"
+          id="project-due-date"
+        /><br />
+        <button type="button" id="create-project">Create Project</button>
+      </form>
       <div id="projects"></div>
     </main>
     <footer></footer>

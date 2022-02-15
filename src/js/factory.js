@@ -5,6 +5,7 @@ export function Project(name, description, dueDate) {
   let project = {};
 
   // parameters as keys
+  project.id = Date.now();
   project.name = name;
   project.description = description;
   project.dueDate = dueDate;
@@ -35,10 +36,21 @@ export function Project(name, description, dueDate) {
       localStorage.setItem("projects", JSON.stringify(projects));
     }
   }
+  // store project when project is created
+  storeProject();
 
-  storeProject();   
+  // function to remove project in local storage
+  function removeProject() {
+    let projects = JSON.parse(localStorage.getItem("projects"));
+    for (let project of JSON.parse(localStorage.getItem("projects"))) {
+      //
+    }
+  }
 
-  return project;
+  return Object.freeze(project);
 }
 
-// want to store project, but also want to be able to update storage every time a project adds todos
+// allow user to hover over a project to reveal a form to allow them to add todo to said project / and projects todos
+// projects collapse when hovered and squeeze when idle
+// form stays atop the project's added todos
+// want to be able to update storage every time a project adds todos

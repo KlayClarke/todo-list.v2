@@ -21,7 +21,7 @@ export function Project(name, description, dueDate) {
   };
 
   // function to store project in local storage
-  project.store = function () {
+  function storeProject() {
     if (storageAvailable("localStorage")) {
       // if no projects instance on local storage, create one
       if (!localStorage.getItem("projects")) {
@@ -34,7 +34,9 @@ export function Project(name, description, dueDate) {
       // set local storage projects instance as object with newly added project
       localStorage.setItem("projects", JSON.stringify(projects));
     }
-  };
+  }
+
+  storeProject();   
 
   return project;
 }

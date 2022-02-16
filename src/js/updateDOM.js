@@ -11,22 +11,26 @@ function displayProjects() {
       addInfoParagraphForProject(project, projectDiv);
       addTodoForm(projectDiv);
       addDeleteButton(projectDiv);
-      addTodosDiv(projectDiv);
+      addTodosDiv(projectDiv, project.id);
       projects.appendChild(projectDiv);
     }
   }
 }
 
 function displayTodos() {
-  let todosDiv = document.querySelector(".todos");
+  let todosDivs = document.querySelectorAll(".todos");
   if (JSON.parse(localStorage.getItem("projects"))) {
-    for (let project of JSON.parse(localStorage.getItem("projects"))) {
-      for (let todo of project.todos) {
-        let todoDiv = document.createElement("div");
-        todoDiv.classList.add("todo");
-        todoDiv.setAttribute("id", todo.id);
-        addInfoParagraphForTodo(todo, todoDiv);
-        todosDiv.appendChild(todoDiv);
+    for (let todosDiv of todosDivs) {
+      for (let project of JSON.parse(localStorage.getItem("projects"))) {
+        if (project.id == todosDiv.id) {
+          for (let todo of project.todos) {
+            let todoEl = document.createElement("div");
+            todoEl.classList.add("todo");
+            todoEl.setAttribute("id", todo.id);
+            addInfoParagraphForTodo(todo, todoEl);
+            todosDiv.appendChild(todoEl);
+          }
+        }
       }
     }
   }
@@ -58,6 +62,7 @@ function addTodoForm(el) {
   // create input for todo name
   let todoName = document.createElement("input");
   todoName.setAttribute("type", "text");
+  todoName.setAttribute("id", el.id);
   todoName.setAttribute("name", "todo-name");
   todoName.setAttribute("placeholder", "Todo Text");
   // create submit button
@@ -74,15 +79,19 @@ function addTodoForm(el) {
 }
 
 function addDeleteButton(el) {
-  let deleteButton = document.createElement("span");
+  let deleteButton = document.createElement("button");
   deleteButton.classList.add("delete-project");
   deleteButton.setAttribute("id", el.id);
+  deleteButton.setAttribute("type", "submit");
   deleteButton.innerHTML = "&times;";
   el.appendChild(deleteButton);
 }
 
-function addTodosDiv(el) {
+function addTodosDiv(el, id) {
   let todosDiv = document.createElement("div");
   todosDiv.classList.add("todos");
+  todosDiv.setAttribute("id", id);
   el.appendChild(todosDiv);
 }
+
+// store todos below each project

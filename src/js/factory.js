@@ -23,13 +23,11 @@ export function initializeUser() {
     todo.id = Date.now();
     todo.name = name;
 
-    for (let p of userObject.projects) {
-      if (p.id == projectId) {
-        p.todos.push(todo);
+    for (let project of userObject.projects) {
+      if (project.id == projectId) {
+        project.todos.push(todo);
       }
     }
-
-    //   [projectId].push(todo);
   };
 
   return userObject;

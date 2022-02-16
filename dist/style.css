@@ -4,11 +4,18 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-body {
+label {
+  text-decoration: underline;
+}
+
+main {
+  padding: 50px;
+}
+
+#content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 #project-form {
@@ -36,8 +43,24 @@ body {
   justify-content: space-between;
 }
 
+.project p,
+.project form,
+.project span {
+  border: 1px solid black;
+  padding: 15px;
+}
+
 .project:hover {
   background-color: lightgray;
+}
+
+.project-info {
+  width: 300px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 .delete-project {
@@ -57,4 +80,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.line-break {
+  border: 1px solid black;
+}
+
+@media (max-width: 800px) {
+  .project {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project form,
+  .project span {
+    display: flex;
+  }
 }

@@ -1,65 +1,77 @@
 import "./storage";
 import { updateDOM } from "./updateDOM";
-import { Project } from "./factory";
+import { initializeUser } from "./factory";
+
+let user = initializeUser(); // save initial user object
+
+if (!localStorage.getItem("projects")) {
+  localStorage.setItem("projects", JSON.stringify(user.projects));
+}
+
+user.projects = JSON.parse(localStorage.getItem("projects"));
 
 updateDOM();
 
-let createProjectButton = document.querySelector("#create-project");
-let deleteButtons = document.querySelectorAll(".delete-project");
-
-function createProject() {
-  if (
-    document.querySelector("input[name='project-name']").value &&
-    document.querySelector("textarea[name='project-description']").value &&
-    document.querySelector("input[name='project-due-date']").value
-  ) {
-    let name = document.querySelector("input[name='project-name']").value;
-    let description = document.querySelector(
-      "textarea[name='project-description']"
-    ).value;
-    let dueDate = document.querySelector(
-      "input[name='project-due-date']"
-    ).value;
-    let id = Date.now();
-    Project(name, description, dueDate);
-    // clear input fields
-    document.querySelector("input[name='project-name']").value = "";
-    document.querySelector("textarea[name='project-description']").value = "";
-    document.querySelector("input[name='project-due-date']").value = "";
-    updateDOM();
+function addProject() {
+  let projectName = document.querySelector("input[name='project-name']");
+  let projectDescription = document.querySelector(
+    "textarea[name='project-description']"
+  );
+  let projectDueDate = document.querySelector("input[name='project-due-date']");
+  user.project(
+    projectName.value,
+    projectDescription.value,
+    projectDueDate.value
+  );
+  for (let field of [projectName, projectDescription, projectDueDate]) {
+    field.value = "";
   }
+  localStorage.setItem("projects", JSON.stringify(user.projects));
+  updateDOM();
 }
 
-function deleteProject(e) {
+function removeProject(e) {
   // search through local storage and compare button id to project ids, remove project with same id as button
-  for (let project of JSON.parse(localStorage.getItem("projects"))) {
+  for (let project of user.projects) {
     if (project.id == e.target.id) {
-      let projects = JSON.parse(localStorage.getItem("projects"));
-      let newProjects = projects.filter((project) => project.id != e.target.id);
-      localStorage.setItem("projects", JSON.stringify(newProjects));
+      user.projects = user.projects.filter((p) => p !== project);
+      localStorage.setItem("projects", JSON.stringify(user.projects));
     }
   }
   updateDOM();
 }
 
-// function to add todo to project
-function addTodo(id) {
-  let todo = {
-    id: Date.now(),
-    name: name,
-    priority: priority,
-  };
-  for (let project of JSON.parse(localStorage.getItem("projects"))) {
-    if (project.id == id) {
-      console.log(project);
+function addTodo(e) {
+  if (document.querySelector("input[name='todo-name']")) {
+    for (let project of user.projects) {
+      if (project.id == e.target.id) {
+        user.todo(
+          project.id,
+          document.querySelector("input[name='todo-name']").value
+        );
+        localStorage.setItem("projects", JSON.stringify(user.projects));
+      }
     }
   }
+  updateDOM();
 }
 
-createProjectButton.addEventListener("click", createProject);
-deleteButtons.forEach((btn) => btn.addEventListener("click", deleteProject));
+let createProjectButton = document.querySelector(
+  "button[name='create-project']"
+);
+let deleteButtons = document.querySelectorAll("span.delete-project");
+let createTodoButtons = document.querySelectorAll("button[name='add-todo']");
 
-// eventually create own DOM file where we house element creation ... get organized
+createProjectButton.addEventListener("click", addProject);
+deleteButtons.forEach((btn) => btn.addEventListener("click", removeProject));
 
-//delete buttons only work after refresh : don't work after todo creation, or after todo deletion
-// make it so delete buttons allows you to delete 2 projects back to back
+createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));
+
+// only first button of each nodelist works
+// delete buttons only work after refresh : don't work after todo creation, or after todo deletion
+// todos are overwriting each other
+
+// cool functionality:
+
+//// have user rank todos by priority (0 to 5) - rank todos by prio
+//// on hover, show todo form and options button that gives user option to view todos, and delete project

@@ -12,6 +12,8 @@ user.projects = JSON.parse(localStorage.getItem("projects"));
 
 updateDOM();
 
+console.log(user.projects);
+
 function addProject() {
   let projectName = document.querySelector("input[name='project-name']");
   let projectDescription = document.querySelector(
@@ -46,13 +48,11 @@ function removeProject(e) {
 }
 
 function addTodo(e) {
-  if (document.querySelector("input[name='todo-name']").value) {
+  let todoNameInputs = document.querySelectorAll("input[name='todo-name']");
+  for (let todoNameInput of todoNameInputs) {
     for (let project of user.projects) {
-      if (project.id == e.target.id) {
-        user.todo(
-          project.id,
-          document.querySelector("input[name='todo-name']").value
-        );
+      if (todoNameInput.id == e.target.id && project.id == e.target.id) {
+        user.todo(project.id, todoNameInput.value);
         localStorage.setItem("projects", JSON.stringify(user.projects));
       }
     }
@@ -65,18 +65,11 @@ let createProjectButton = document.querySelector(
   "button[name='create-project']"
 );
 let deleteButtons = document.querySelectorAll("button.delete-project");
-let createTodoButtons = Array.prototype.slice.apply(
-  document.querySelectorAll("button[name='add-todo']")
-);
+let createTodoButtons = document.querySelectorAll("button[name='add-todo']");
 
 createProjectButton.addEventListener("click", addProject);
 deleteButtons.forEach((btn) => btn.addEventListener("click", removeProject));
-
-[...createTodoButtons].forEach((btn) => btn.addEventListener("click", addTodo));
-
-// only first button of each nodelist works
-// delete buttons only work after refresh : don't work after todo creation, or after todo deletion
-// todos are overwriting each other
+createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));
 
 // cool functionality:
 

@@ -1,7 +1,5 @@
-function displayProject() {}
-
 function displayProjects() {
-  const projects = document.querySelector("#projects");
+  let projects = document.querySelector("#projects");
   projects.innerHTML = "";
   if (JSON.parse(localStorage.getItem("projects"))) {
     for (let project of JSON.parse(localStorage.getItem("projects"))) {
@@ -9,22 +7,48 @@ function displayProjects() {
       let projectDiv = document.createElement("div");
       projectDiv.classList.add("project");
       projectDiv.setAttribute("id", project.id);
-      projectDiv.innerText = `${project.name}: ${project.description} | ${project.dueDate}`;
+      // create paragraph with project info
+      addInfoParagraphForProject(project, projectDiv);
       addTodoForm(projectDiv);
       addDeleteButton(projectDiv);
-      // append newly created project to div of all projects
+      addTodosDiv(projectDiv);
       projects.appendChild(projectDiv);
     }
   }
 }
 
-function addDeleteButton(el) {
-  let deleteButton = document.createElement("button");
-  deleteButton.classList.add("delete-project");
-  deleteButton.classList.add("hide");
-  deleteButton.setAttribute("id", el.id);
-  deleteButton.innerHTML = "&times;";
-  el.appendChild(deleteButton);
+function displayTodos() {
+  let todosDiv = document.querySelector(".todos");
+  if (JSON.parse(localStorage.getItem("projects"))) {
+    for (let project of JSON.parse(localStorage.getItem("projects"))) {
+      for (let todo of project.todos) {
+        let todoDiv = document.createElement("div");
+        todoDiv.classList.add("todo");
+        todoDiv.setAttribute("id", todo.id);
+        addInfoParagraphForTodo(todo, todoDiv);
+        todosDiv.appendChild(todoDiv);
+      }
+    }
+  }
+}
+
+export function updateDOM() {
+  displayProjects();
+  displayTodos();
+}
+
+function addInfoParagraphForProject(project, el) {
+  let paragragh = document.createElement("p");
+  paragragh.classList.add("project-info");
+  paragragh.innerHTML = `Complete <b>${project.name}</b> by ${project.dueDate} <br> <hr class='line-break'> ${project.description} `;
+  el.appendChild(paragragh);
+}
+
+function addInfoParagraphForTodo(todo, el) {
+  let paragraph = document.createElement("p");
+  paragraph.classList.add("todo-info");
+  paragraph.innerHTML = `${todo.name}`;
+  el.appendChild(paragraph);
 }
 
 function addTodoForm(el) {
@@ -37,9 +61,11 @@ function addTodoForm(el) {
   todoName.setAttribute("name", "todo-name");
   todoName.setAttribute("placeholder", "Todo Text");
   // create submit button
-  let submitButton = document.createElement("input");
-  submitButton.setAttribute("type", "submit");
-  submitButton.setAttribute("value", "Add Todo");
+  let submitButton = document.createElement("button");
+  submitButton.innerText = "Add Todo";
+  submitButton.setAttribute("type", "button");
+  submitButton.setAttribute("id", el.id);
+  submitButton.setAttribute("name", "add-todo");
   // append inputs to form
   todoForm.appendChild(todoName);
   todoForm.appendChild(submitButton);
@@ -47,11 +73,16 @@ function addTodoForm(el) {
   el.appendChild(todoForm);
 }
 
-export function updateDOM() {
-  displayProjects();
-  console.log(JSON.parse(localStorage.getItem("projects")));
+function addDeleteButton(el) {
+  let deleteButton = document.createElement("span");
+  deleteButton.classList.add("delete-project");
+  deleteButton.setAttribute("id", el.id);
+  deleteButton.innerHTML = "&times;";
+  el.appendChild(deleteButton);
 }
 
-// build delete button for all, but show it only when hover
-
-// create factory functions for these
+function addTodosDiv(el) {
+  let todosDiv = document.createElement("div");
+  todosDiv.classList.add("todos");
+  el.appendChild(todosDiv);
+}

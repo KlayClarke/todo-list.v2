@@ -18,16 +18,19 @@ function addProject() {
     "textarea[name='project-description']"
   );
   let projectDueDate = document.querySelector("input[name='project-due-date']");
-  user.project(
-    projectName.value,
-    projectDescription.value,
-    projectDueDate.value
-  );
-  for (let field of [projectName, projectDescription, projectDueDate]) {
-    field.value = "";
+  if (projectName.value && projectDueDate.value) {
+    user.project(
+      projectName.value,
+      projectDescription.value,
+      projectDueDate.value
+    );
+    for (let field of [projectName, projectDescription, projectDueDate]) {
+      field.value = "";
+    }
+    localStorage.setItem("projects", JSON.stringify(user.projects));
+    updateDOM();
+    window.location.reload();
   }
-  localStorage.setItem("projects", JSON.stringify(user.projects));
-  updateDOM();
 }
 
 function removeProject(e) {
@@ -39,10 +42,11 @@ function removeProject(e) {
     }
   }
   updateDOM();
+  window.location.reload();
 }
 
 function addTodo(e) {
-  if (document.querySelector("input[name='todo-name']")) {
+  if (document.querySelector("input[name='todo-name']").value) {
     for (let project of user.projects) {
       if (project.id == e.target.id) {
         user.todo(
@@ -54,18 +58,21 @@ function addTodo(e) {
     }
   }
   updateDOM();
+  window.location.reload();
 }
 
 let createProjectButton = document.querySelector(
   "button[name='create-project']"
 );
-let deleteButtons = document.querySelectorAll("span.delete-project");
-let createTodoButtons = document.querySelectorAll("button[name='add-todo']");
+let deleteButtons = document.querySelectorAll("button.delete-project");
+let createTodoButtons = Array.prototype.slice.apply(
+  document.querySelectorAll("button[name='add-todo']")
+);
 
 createProjectButton.addEventListener("click", addProject);
 deleteButtons.forEach((btn) => btn.addEventListener("click", removeProject));
 
-createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));
+[...createTodoButtons].forEach((btn) => btn.addEventListener("click", addTodo));
 
 // only first button of each nodelist works
 // delete buttons only work after refresh : don't work after todo creation, or after todo deletion

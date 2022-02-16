@@ -8,31 +8,35 @@
     <title>Reminders</title>
   </head>
   <body>
-    <header>Reminders</header>
+    <header></header>
     <main>
-      <form action="" id="project-form">
-        <label for="project-name">Project Name</label><br />
-        <input type="text" name="project-name" id="project-name" required />
-        <br />
-        <label for="project-description">Project Description</label><br />
-        <textarea
-          name="project-description"
-          id="project-description"
-          cols="30"
-          rows="10"
-          required
-        ></textarea
-        ><br />
-        <label for="project-due-date">Due Date</label><br />
-        <input
-          type="date"
-          name="project-due-date"
-          id="project-due-date"
-          required
-        /><br />
-        <button type="submit" id="create-project">Create Project</button>
-      </form>
-      <div id="projects"></div>
+      <div id="sidenav"></div>
+      <div id="content">
+        <form action="" id="project-form">
+          <label for="project-name">Project Name</label><br />
+          <input type="text" name="project-name" id="project-name" required />
+          <br />
+          <label for="project-description"
+            >Project Description (Optional) </label
+          ><br />
+          <textarea
+            name="project-description"
+            id="project-description"
+            cols="30"
+            rows="2"
+          ></textarea
+          ><br />
+          <label for="project-due-date">Due Date</label><br />
+          <input
+            type="date"
+            name="project-due-date"
+            id="project-due-date"
+            required
+          /><br />
+          <button type="button" name="create-project">Create Project</button>
+        </form>
+        <div id="projects"></div>
+      </div>
     </main>
     <footer></footer>
     <script src="main.js"></script>

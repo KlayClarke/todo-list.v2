@@ -8,10 +8,6 @@ label {
   text-decoration: underline;
 }
 
-main {
-  padding: 50px;
-}
-
 #content {
   display: flex;
   flex-direction: column;
@@ -19,9 +15,8 @@ main {
 }
 
 #project-form {
-  border: 1px solid salmon;
-  width: 60vw;
-  padding: 20px;
+  width: 40vw;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,6 +36,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid black;
 }
 
 .project p,
@@ -51,11 +47,11 @@ main {
 }
 
 .project:hover {
-  background-color: lightgray;
+  background-color: rgba(233, 233, 233, 0.575);
 }
 
 .project-info {
-  width: 300px;
+  width: 250px;
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-hyphens: auto;
@@ -64,6 +60,7 @@ main {
 }
 
 .delete-project {
+  margin: 10px;
   float: right;
   width: 1.5rem;
   line-height: 1.5rem;
@@ -77,6 +74,7 @@ main {
 }
 
 .todos {
+  margin: 0px 0px 100px;
   border: 1px solid black;
   width: 60vw;
 }
@@ -85,6 +83,19 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.todo {
+  padding: 20px;
+  border: 1px solid black;
+}
+
+.todo:hover {
+  background-color: rgba(241, 241, 241, 0.575);
+}
+
+.todo-info {
+  font-size: large;
 }
 
 .line-break {

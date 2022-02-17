@@ -12,8 +12,6 @@ user.projects = JSON.parse(localStorage.getItem("projects"));
 
 updateDOM();
 
-console.log(user.projects);
-
 function addProject() {
   let projectName = document.querySelector("input[name='project-name']");
   let projectDescription = document.querySelector(
@@ -71,12 +69,10 @@ createProjectButton.addEventListener("click", addProject);
 deleteButtons.forEach((btn) => btn.addEventListener("click", removeProject));
 createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));
 
-// display project todos under project div
-// display todos
-// for each project, insert before todos
 // add ability to resolve todo - check box - when checked, resolve todo automatically
 // refactor code - organize
 
 // cool functionality:
 
 //// on hover, show todo form and options button that gives user option to view todos, and delete project
+// make projects orderable by drag and drop (allow user to drag 2nd todo above first to change their order in user.projects)

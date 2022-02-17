@@ -15,6 +15,7 @@ label {
 }
 
 #project-form {
+  border-bottom: 1px solid black;
   width: 40vw;
   padding: 10px;
   display: flex;

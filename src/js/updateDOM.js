@@ -1,5 +1,7 @@
 let projects = document.querySelector("#projects");
 
+updateDOM(); // display projects & todos
+
 function addInfoParagraphForProject(project, parentDiv) {
   let paragragh = document.createElement("p");
   paragragh.classList.add("project-info");

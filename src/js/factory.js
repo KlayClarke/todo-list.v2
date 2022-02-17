@@ -1,5 +1,3 @@
-import { storageAvailable } from "./storage";
-
 export function initializeUser() {
   let userObject = {};
 
@@ -32,6 +30,3 @@ export function initializeUser() {
 
   return userObject;
 }
-
-// allow user to hover over a project to reveal a form to allow them to add todo to said project / and projects todos
-// projects collapse when hovered and squeeze when idle

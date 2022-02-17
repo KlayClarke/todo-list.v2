@@ -1,6 +1,8 @@
+import * as updateStorage from "./updateStorage";
+
 let projects = document.querySelector("#projects");
 
-updateDOM(); // display projects & todos
+updateDOM(); // display projects & todos on refresh / load
 
 function addInfoParagraphForProject(project, parentDiv) {
   let paragragh = document.createElement("p");
@@ -102,5 +104,24 @@ function displayProjects() {
 export function updateDOM() {
   displayTodos();
   displayProjects();
-  console.log(JSON.parse(localStorage.getItem("projects")));
 }
+
+// access elements / nodes
+let createProjectButton = document.querySelector(
+  "button[name='create-project']"
+);
+let deleteButtons = document.querySelectorAll("button.delete-project");
+let createTodoButtons = document.querySelectorAll("button[name='add-todo']");
+let checkboxes = document.querySelectorAll("input[name='checkbox']");
+
+// event listeners
+createProjectButton.addEventListener("click", updateStorage.addProject);
+deleteButtons.forEach((btn) =>
+  btn.addEventListener("click", updateStorage.removeProject)
+);
+createTodoButtons.forEach((btn) =>
+  btn.addEventListener("click", updateStorage.addTodo)
+);
+checkboxes.forEach((checkbox) =>
+  checkbox.addEventListener("click", updateStorage.resolveTodo)
+);

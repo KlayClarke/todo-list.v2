@@ -9,7 +9,7 @@ if (!localStorage.getItem("projects")) {
 
 user.projects = JSON.parse(localStorage.getItem("projects")); // set user objects content using local storage
 
-function addProject() {
+export function addProject() {
   let projectName = document.querySelector("input[name='project-name']");
   let projectDescription = document.querySelector(
     "textarea[name='project-description']"
@@ -30,7 +30,7 @@ function addProject() {
   }
 }
 
-function addTodo(e) {
+export function addTodo(e) {
   let todoNameInputs = document.querySelectorAll("input[name='todo-name']");
   for (let todoNameInput of todoNameInputs) {
     for (let project of user.projects) {
@@ -48,7 +48,7 @@ function addTodo(e) {
   window.location.reload();
 }
 
-function removeProject(e) {
+export function removeProject(e) {
   // search through local storage and compare button id to project ids, remove project with same id as button
   for (let project of user.projects) {
     if (project.id == e.target.id) {
@@ -60,7 +60,7 @@ function removeProject(e) {
   window.location.reload();
 }
 
-function resolveTodo(e) {
+export function resolveTodo(e) {
   // when checkbox is clicked
   if (e.target.checked) {
     for (let project of user.projects) {
@@ -87,17 +87,3 @@ function resolveTodo(e) {
   updateDOM();
   window.location.reload();
 }
-
-let createProjectButton = document.querySelector(
-  "button[name='create-project']"
-);
-let deleteButtons = document.querySelectorAll("button.delete-project");
-let createTodoButtons = document.querySelectorAll("button[name='add-todo']");
-let checkboxes = document.querySelectorAll("input[name='checkbox']");
-
-createProjectButton.addEventListener("click", addProject);
-deleteButtons.forEach((btn) => btn.addEventListener("click", removeProject));
-createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));
-checkboxes.forEach((checkbox) =>
-  checkbox.addEventListener("click", resolveTodo)
-);

@@ -49,7 +49,11 @@ function addTodo(e) {
   let todoNameInputs = document.querySelectorAll("input[name='todo-name']");
   for (let todoNameInput of todoNameInputs) {
     for (let project of user.projects) {
-      if (todoNameInput.id == e.target.id && project.id == e.target.id) {
+      if (
+        todoNameInput.id == e.target.id &&
+        project.id == e.target.id &&
+        todoNameInput.value
+      ) {
         user.todo(project.id, todoNameInput.value);
         localStorage.setItem("projects", JSON.stringify(user.projects));
       }

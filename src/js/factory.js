@@ -35,5 +35,3 @@ export function initializeUser() {
 
 // allow user to hover over a project to reveal a form to allow them to add todo to said project / and projects todos
 // projects collapse when hovered and squeeze when idle
-// form stays atop the project's added todos
-// want to be able to update storage every time a project adds todos

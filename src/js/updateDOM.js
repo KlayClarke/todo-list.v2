@@ -7,15 +7,8 @@ updateDOM(); // display projects & todos on refresh / load
 function addInfoParagraphForProject(project, parentDiv) {
   let paragragh = document.createElement("p");
   paragragh.classList.add("project-info");
-  paragragh.innerHTML = `Complete <b>${project.name}</b> by ${project.dueDate} <br> <hr class='line-break'> ${project.description} `;
+  paragragh.innerHTML = `Complete <b>${project.name}</b> by ${project.dueDate} <br> <br> ${project.description} `;
   parentDiv.appendChild(paragragh);
-}
-
-function addInfoParagraphForTodo(todo, parentDiv) {
-  let paragraph = document.createElement("p");
-  paragraph.classList.add("todo-info");
-  paragraph.innerHTML = `${todo.name}`;
-  parentDiv.appendChild(paragraph);
 }
 
 function addTodoForm(parentDiv) {
@@ -58,6 +51,13 @@ function addCheckBox(todo, parentDiv) {
   parentDiv.appendChild(checkBox);
 }
 
+function addInfoParagraphForTodo(todo, parentDiv) {
+  let paragraph = document.createElement("p");
+  paragraph.classList.add("todo-info");
+  paragraph.innerHTML = `${todo.name}`;
+  parentDiv.appendChild(paragraph);
+}
+
 function displayTodos() {
   projects.innerHTML = "";
   if (JSON.parse(localStorage.getItem("projects"))) {
@@ -70,8 +70,8 @@ function displayTodos() {
         let todoDiv = document.createElement("div");
         todoDiv.classList.add("todo");
         todoDiv.setAttribute("id", todo.id);
-        addInfoParagraphForTodo(todo, todoDiv);
         addCheckBox(todo, todoDiv);
+        addInfoParagraphForTodo(todo, todoDiv);
         todosDiv.appendChild(todoDiv);
       }
     }

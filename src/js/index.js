@@ -75,7 +75,14 @@ function resolveTodo(e) {
           user.projects[projectIndex].todos = user.projects[
             projectIndex
           ].todos.filter((t) => t !== todo);
-          localStorage.setItem("projects", JSON.stringify(user.projects));
+          // check project todos list - if empty, remove project altogether (project is complete / resolved)
+          if (user.projects[projectIndex].todos.length === 0) {
+            // remove project
+            user.projects = user.projects.filter((p) => p !== project);
+            localStorage.setItem("projects", JSON.stringify(user.projects));
+          } else {
+            localStorage.setItem("projects", JSON.stringify(user.projects));
+          }
         }
       }
     }
@@ -97,10 +104,10 @@ createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));
 checkboxes.forEach((checkbox) =>
   checkbox.addEventListener("click", resolveTodo)
 );
-// add ability to resolve todo - check box - when checked, resolve todo automatically
-// refactor code - organize
+
+// todos:
+// - professional, sophisticated, intellectual, Apple-esque styles
+// - refactor code - organize
 
 // cool functionality:
-
-//// on hover, show todo form and options button that gives user option to view todos, and delete project
-// make projects orderable by drag and drop (allow user to drag 2nd todo above first to change their order in user.projects)
+// - make projects orderable by drag and drop (allow user to drag 2nd todo above first to change their order in user.projects)

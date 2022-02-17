@@ -71,7 +71,12 @@ createProjectButton.addEventListener("click", addProject);
 deleteButtons.forEach((btn) => btn.addEventListener("click", removeProject));
 createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));
 
+// display project todos under project div
+// display todos
+// for each project, insert before todos
+// add ability to resolve todo - check box - when checked, resolve todo automatically
+// refactor code - organize
+
 // cool functionality:
 
-//// have user rank todos by priority (0 to 5) - rank todos by prio
 //// on hover, show todo form and options button that gives user option to view todos, and delete project

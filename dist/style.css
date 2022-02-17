@@ -8,14 +8,65 @@ label {
   text-decoration: underline;
 }
 
-#content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+button {
+  background: none;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 5px;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+button#modal-toggle {
+  background-color: #73b60e;
+  border: 1px solid rgb(56, 91, 4);
+}
+
+button[name="create-project"] {
+  background-color: rgb(115, 182, 14);
+  border: 1px solid rgb(56, 91, 4);
+  margin-top: 10px;
+}
+
+button[name="add-todo"] {
+  background-color: rgb(115, 182, 14);
+  border: 1px solid rgb(56, 91, 4);
+  margin-left: 20px;
+}
+
+button.delete-project {
+  background-color: red;
+  border: 1px solid rgb(157, 2, 2);
+  margin-right: 20px;
+}
+
+button:hover {
+  opacity: 0.75;
+}
+
+input[name="todo-name"] {
+  border: 1px solid rgb(56, 91, 4);
+  border-radius: 0.25rem;
+  padding-left: 10px;
+  height: 30px;
+  font-size: 15px;
+}
+
+input[name="checkbox"] {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 #modal-toggle {
   margin: 20px;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #projects {
@@ -53,16 +104,11 @@ label {
 
 .modal-close-button {
   float: right;
-  width: 1.5rem;
-  line-height: 1.5rem;
   text-align: center;
   cursor: pointer;
   border-radius: 0.25rem;
-  background-color: lightgray;
-}
-
-.modal-close-button:hover {
-  background-color: rgba(169, 169, 169, 0.582);
+  background-color: red;
+  border: 1px solid rgb(157, 2, 2);
 }
 
 .project-form {
@@ -84,45 +130,33 @@ label {
 /* project form modal ends */
 
 .project {
+  border: 1px solid lightgray;
+  border-radius: 1.5rem;
   padding: 15px;
   width: 60vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: rgb(255, 255, 255);
 }
 
 .project p,
 .project form,
 .project span {
-  /* border: 1px solid black; */
   padding: 15px;
 }
 
-.project:hover {
-  background-color: rgba(233, 233, 233, 0.575);
-}
-
 .project-info {
+  border: 1px solid gray;
+  border-radius: 1.5rem;
+  background-color: white;
+  color: black;
   width: 250px;
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
-}
-
-.delete-project {
-  margin: 10px;
-  float: right;
-  width: 1.5rem;
-  line-height: 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 0.25rem;
-}
-
-.delete-project:hover {
-  background-color: red;
 }
 
 .todos {
@@ -140,7 +174,11 @@ label {
   padding: 20px;
   margin: 10px;
   border: 1px solid black;
-  border-radius: 50px;
+  border-radius: 1.5rem;
+  max-height: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .todo:hover {
@@ -148,16 +186,8 @@ label {
 }
 
 .todo-info {
-  font-size: large;
-}
-
-.project,
-.todos {
-  border: 1px solid black;
-}
-
-.line-break {
-  border: 1px solid black;
+  font-size: medium;
+  margin-left: 40px;
 }
 
 /* media queries */

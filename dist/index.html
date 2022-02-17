@@ -10,31 +10,46 @@
   <body>
     <header></header>
     <main>
-      <div id="sidenav"></div>
       <div id="content">
-        <form action="" id="project-form">
-          <label for="project-name">Project Name</label><br />
-          <input type="text" name="project-name" id="project-name" required />
-          <br />
-          <label for="project-description"
-            >Project Description (Optional) </label
-          ><br />
-          <textarea
-            name="project-description"
-            id="project-description"
-            cols="30"
-            rows="2"
-          ></textarea
-          ><br />
-          <label for="project-due-date">Due Date</label><br />
-          <input
-            type="date"
-            name="project-due-date"
-            id="project-due-date"
-            required
-          /><br />
-          <button type="submit" name="create-project">Create Project</button>
-        </form>
+        <button id="modal-toggle" type="button">Add Project</button>
+        <section class="project-form-modal">
+          <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <div class="modal-form">
+              <form action="" id="project-form">
+                <label for="project-name">Project Name</label><br />
+                <input
+                  type="text"
+                  name="project-name"
+                  id="project-name"
+                  required
+                />
+                <br />
+                <label for="project-description"
+                  >Project Description (Optional) </label
+                ><br />
+                <textarea
+                  name="project-description"
+                  id="project-description"
+                  cols="30"
+                  rows="2"
+                ></textarea
+                ><br />
+                <label for="project-due-date">Due Date</label><br />
+                <input
+                  type="date"
+                  name="project-due-date"
+                  id="project-due-date"
+                  required
+                /><br />
+                <button type="submit" name="create-project">
+                  Create Project
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
         <section id="projects"></section>
       </div>
     </main>

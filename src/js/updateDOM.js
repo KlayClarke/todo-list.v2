@@ -1,6 +1,6 @@
 let projects = document.querySelector("#projects");
 
-updateDOM(); // display projects & todos
+updateDOM(); // display projects & todos on refresh / load
 
 function addInfoParagraphForProject(project, parentDiv) {
   let paragragh = document.createElement("p");
@@ -102,5 +102,4 @@ function displayProjects() {
 export function updateDOM() {
   displayTodos();
   displayProjects();
-  console.log(JSON.parse(localStorage.getItem("projects")));
 }

@@ -88,6 +88,7 @@ function resolveTodo(e) {
   window.location.reload();
 }
 
+// access elements / nodes
 let createProjectButton = document.querySelector(
   "button[name='create-project']"
 );
@@ -95,6 +96,7 @@ let deleteButtons = document.querySelectorAll("button.delete-project");
 let createTodoButtons = document.querySelectorAll("button[name='add-todo']");
 let checkboxes = document.querySelectorAll("input[name='checkbox']");
 
+// event listeners
 createProjectButton.addEventListener("click", addProject);
 deleteButtons.forEach((btn) => btn.addEventListener("click", removeProject));
 createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));

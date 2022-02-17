@@ -1,4 +1,4 @@
-import "./updateDom";
+import "./updateDOM";
 import "./updateStorage";
 
 // todos:

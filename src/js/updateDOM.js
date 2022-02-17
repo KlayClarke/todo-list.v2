@@ -1,35 +1,41 @@
-function displayProjects() {
-  let projects = document.querySelector("#projects");
+let projects = document.querySelector("#projects");
+
+function displayTodos() {
   projects.innerHTML = "";
   if (JSON.parse(localStorage.getItem("projects"))) {
     for (let project of JSON.parse(localStorage.getItem("projects"))) {
-      // create div to hold project
+      let todosDiv = document.createElement("div");
+      todosDiv.classList.add("todos");
+      todosDiv.setAttribute("id", project.id);
+      projects.appendChild(todosDiv);
+      for (let todo of project.todos) {
+        let todoDiv = document.createElement("div");
+        todoDiv.classList.add("todo");
+        todoDiv.setAttribute("id", todo.id);
+        addInfoParagraphForTodo(todo, todoDiv);
+        todosDiv.appendChild(todoDiv);
+      }
+    }
+  }
+}
+
+function displayProjects() {
+  if (JSON.parse(localStorage.getItem("projects"))) {
+    for (let project of JSON.parse(localStorage.getItem("projects"))) {
+      // create project div to hold project
       let projectDiv = document.createElement("div");
       projectDiv.classList.add("project");
       projectDiv.setAttribute("id", project.id);
       // create paragraph with project info
       addInfoParagraphForProject(project, projectDiv);
+      // add todo creation form to project
       addTodoForm(projectDiv);
+      // add project delete button to project
       addDeleteButton(projectDiv);
-      addTodosDiv(projectDiv, project.id);
-      projects.appendChild(projectDiv);
-    }
-  }
-}
-
-function displayTodos() {
-  let todosDivs = document.querySelectorAll(".todos");
-  if (JSON.parse(localStorage.getItem("projects"))) {
-    for (let todosDiv of todosDivs) {
-      for (let project of JSON.parse(localStorage.getItem("projects"))) {
-        if (project.id == todosDiv.id) {
-          for (let todo of project.todos) {
-            let todoEl = document.createElement("div");
-            todoEl.classList.add("todo");
-            todoEl.setAttribute("id", todo.id);
-            addInfoParagraphForTodo(todo, todoEl);
-            todosDiv.appendChild(todoEl);
-          }
+      // append projectDiv to project's section before project's corresponding todo div (same ids)
+      for (let todosDiv of document.querySelectorAll(".todos")) {
+        if (todosDiv.id == projectDiv.id) {
+          projects.insertBefore(projectDiv, todosDiv);
         }
       }
     }
@@ -37,61 +43,52 @@ function displayTodos() {
 }
 
 export function updateDOM() {
-  displayProjects();
   displayTodos();
+  displayProjects();
 }
 
-function addInfoParagraphForProject(project, el) {
+function addInfoParagraphForProject(project, parentDiv) {
   let paragragh = document.createElement("p");
   paragragh.classList.add("project-info");
   paragragh.innerHTML = `Complete <b>${project.name}</b> by ${project.dueDate} <br> <hr class='line-break'> ${project.description} `;
-  el.appendChild(paragragh);
+  parentDiv.appendChild(paragragh);
 }
 
-function addInfoParagraphForTodo(todo, el) {
+function addInfoParagraphForTodo(todo, parentDiv) {
   let paragraph = document.createElement("p");
   paragraph.classList.add("todo-info");
   paragraph.innerHTML = `${todo.name}`;
-  el.appendChild(paragraph);
+  parentDiv.appendChild(paragraph);
 }
 
-function addTodoForm(el) {
+function addTodoForm(parentDiv) {
   // create form element
   let todoForm = document.createElement("form");
   todoForm.classList.add(".todo-form");
   // create input for todo name
   let todoName = document.createElement("input");
   todoName.setAttribute("type", "text");
-  todoName.setAttribute("id", el.id);
+  todoName.setAttribute("id", parentDiv.id);
   todoName.setAttribute("name", "todo-name");
   todoName.setAttribute("placeholder", "Todo Text");
   // create submit button
   let submitButton = document.createElement("button");
   submitButton.innerText = "Add Todo";
   submitButton.setAttribute("type", "button");
-  submitButton.setAttribute("id", el.id);
+  submitButton.setAttribute("id", parentDiv.id);
   submitButton.setAttribute("name", "add-todo");
   // append inputs to form
   todoForm.appendChild(todoName);
   todoForm.appendChild(submitButton);
   // append form to parent el
-  el.appendChild(todoForm);
+  parentDiv.appendChild(todoForm);
 }
 
-function addDeleteButton(el) {
+function addDeleteButton(parentDiv) {
   let deleteButton = document.createElement("button");
   deleteButton.classList.add("delete-project");
-  deleteButton.setAttribute("id", el.id);
+  deleteButton.setAttribute("id", parentDiv.id);
   deleteButton.setAttribute("type", "submit");
   deleteButton.innerHTML = "&times;";
-  el.appendChild(deleteButton);
+  parentDiv.appendChild(deleteButton);
 }
-
-function addTodosDiv(el, id) {
-  let todosDiv = document.createElement("div");
-  todosDiv.classList.add("todos");
-  todosDiv.setAttribute("id", id);
-  el.appendChild(todosDiv);
-}
-
-// store todos below each project

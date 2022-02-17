@@ -33,18 +33,6 @@ function addProject() {
   }
 }
 
-function removeProject(e) {
-  // search through local storage and compare button id to project ids, remove project with same id as button
-  for (let project of user.projects) {
-    if (project.id == e.target.id) {
-      user.projects = user.projects.filter((p) => p !== project);
-      localStorage.setItem("projects", JSON.stringify(user.projects));
-    }
-  }
-  updateDOM();
-  window.location.reload();
-}
-
 function addTodo(e) {
   let todoNameInputs = document.querySelectorAll("input[name='todo-name']");
   for (let todoNameInput of todoNameInputs) {
@@ -63,16 +51,52 @@ function addTodo(e) {
   window.location.reload();
 }
 
+function removeProject(e) {
+  // search through local storage and compare button id to project ids, remove project with same id as button
+  for (let project of user.projects) {
+    if (project.id == e.target.id) {
+      user.projects = user.projects.filter((p) => p !== project);
+      localStorage.setItem("projects", JSON.stringify(user.projects));
+    }
+  }
+  updateDOM();
+  window.location.reload();
+}
+
+function resolveTodo(e) {
+  // when checkbox is clicked
+  if (e.target.checked) {
+    for (let project of user.projects) {
+      let projectIndex = user.projects.indexOf(project);
+      for (let todo of project.todos) {
+        // find checkbox's corresponding todo (same id)
+        if (todo.id == e.target.id) {
+          let todoIndex = project.todos.indexOf(todo);
+          user.projects[projectIndex].todos = user.projects[
+            projectIndex
+          ].todos.filter((t) => t !== todo);
+          localStorage.setItem("projects", JSON.stringify(user.projects));
+        }
+      }
+    }
+  }
+  updateDOM();
+  window.location.reload();
+}
+
 let createProjectButton = document.querySelector(
   "button[name='create-project']"
 );
 let deleteButtons = document.querySelectorAll("button.delete-project");
 let createTodoButtons = document.querySelectorAll("button[name='add-todo']");
+let checkboxes = document.querySelectorAll("input[name='checkbox']");
 
 createProjectButton.addEventListener("click", addProject);
 deleteButtons.forEach((btn) => btn.addEventListener("click", removeProject));
 createTodoButtons.forEach((btn) => btn.addEventListener("click", addTodo));
-
+checkboxes.forEach((checkbox) =>
+  checkbox.addEventListener("click", resolveTodo)
+);
 // add ability to resolve todo - check box - when checked, resolve todo automatically
 // refactor code - organize
 

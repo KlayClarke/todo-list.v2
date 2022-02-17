@@ -14,14 +14,8 @@ label {
   align-items: center;
 }
 
-#project-form {
-  border-bottom: 1px solid black;
-  width: 40vw;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+#modal-toggle {
+  margin: 20px;
 }
 
 #projects {
@@ -31,19 +25,76 @@ label {
   justify-content: center;
 }
 
+/* project form modal start */
+
+.project-form-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transform: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem 1.5rem;
+  width: 24rem;
+  border-radius: 0.5rem;
+}
+
+.modal-close-button {
+  float: right;
+  width: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: lightgray;
+}
+
+.modal-close-button:hover {
+  background-color: rgba(169, 169, 169, 0.582);
+}
+
+.project-form {
+  width: 40vw;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+/* project form modal ends */
+
 .project {
   padding: 15px;
   width: 60vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid black;
 }
 
 .project p,
 .project form,
 .project span {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 15px;
 }
 
@@ -75,8 +126,7 @@ label {
 }
 
 .todos {
-  margin: 0px 0px 100px;
-  border: 1px solid black;
+  margin-bottom: 30px;
   width: 60vw;
 }
 
@@ -88,7 +138,9 @@ label {
 
 .todo {
   padding: 20px;
+  margin: 10px;
   border: 1px solid black;
+  border-radius: 50px;
 }
 
 .todo:hover {
@@ -99,15 +151,23 @@ label {
   font-size: large;
 }
 
+.project,
+.todos {
+  border: 1px solid black;
+}
+
 .line-break {
   border: 1px solid black;
 }
+
+/* media queries */
 
 @media (max-width: 800px) {
   .project {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
   }
 
   .project form,

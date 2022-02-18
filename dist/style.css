@@ -130,8 +130,10 @@ input[name="checkbox"] {
 /* project form modal ends */
 
 .project {
-  border: 1px solid lightgray;
-  border-radius: 1.5rem;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-radius: 1rem;
   padding: 15px;
   width: 60vw;
   display: flex;
@@ -162,6 +164,8 @@ input[name="checkbox"] {
 .todos {
   margin-bottom: 30px;
   width: 60vw;
+  border: 1px solid black;
+  border-radius: 1.5rem;
 }
 
 .todo-form {
@@ -173,8 +177,6 @@ input[name="checkbox"] {
 .todo {
   padding: 20px;
   margin: 10px;
-  border: 1px solid black;
-  border-radius: 1.5rem;
   max-height: 40px;
   height: 40px;
   display: flex;
@@ -183,6 +185,10 @@ input[name="checkbox"] {
 
 .todo:hover {
   background-color: rgba(241, 241, 241, 0.575);
+}
+
+.todo:not(:last-child) {
+  border-bottom: 1px solid black;
 }
 
 .todo-info {
